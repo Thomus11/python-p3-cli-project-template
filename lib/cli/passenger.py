@@ -13,13 +13,14 @@ def manage_passengers(session):
 
         if choice == "1":
             name = input("Enter passenger's name: ")
-            contact_info = input("Enter contact info (optional): ")
+            contact_info = input("Enter contact info: ")
             try:
                 passenger = Passenger(name=name, contact_info=contact_info)
                 session.add(passenger)
                 session.commit()
                 print("Passenger added successfully!")
             except Exception as e:
+                session.rollback()
                 print(f"Error adding passenger: {e}")
         elif choice == "2":
             passenger_id = input("Enter Passenger ID to delete: ")
